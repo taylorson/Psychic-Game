@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Psyhic Game</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/style.css" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
+<link type="text/javascript" src="assets/psychic.js">
+
+</head>
+
+<body id="body" class="clearfix"> 
+<script src="assets/psychic.js"> 
+// var alphabet bank
+var alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+var numGuess=  15;  
+var userGuessed=[]; 
+var loseCounter=[0]; 
+var winCounter=[0]; 
+var amountOfGuess=numGuess;
+function randomizer (alphabet) {
+	return alphabet[Math.floor(Math.random()* alphabet.length)];
+}
+document.onkeyup = function(event) {
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+	var computerGuess=randomizer(alphabet);
+		
+	if (userGuess== computerGuess) {
+		console.log("correct", userGuessed);
+		document.getElementById("winCounter").innerHTML= (winCounter.length);
+		userGuessed.push(userGuess);
+		document.getElementById("userGuessed").innerHTML=(userGuessed);
+		(winCounter+=1);
+		
+	} else {
+		console.log("no", numGuess, userGuessed);
+		document.getElementById("loseCounter").innerHTML= (loseCounter.length);
+		userGuessed.push(userGuess);
+		document.getElementById("userGuessed").innerHTML=(userGuessed);
+		numGuess--;
+		document.getElementById("numGuess").innerHTML=(numGuess);
+		
+	}
+	if (numGuess===0 ) {
+		alert("You lose! Try again.");
+		reset.resetGame();
+		loseCounter+=1;
+		userGuessed=[];
+	
+	};
+}
+var reset = {
+	resetGame: function() {
+		if(numGuess==0) {
+			document.onekeyup=false;
+			numGuess=15;
+			userGuessed=[];
+		}
+	}
+}
+</script>
+<div id="wrap">
+		<div class="container"> 
+			<div class="row">
+				<div class="col-lg-8"> 
+					<h1 class="title-psychicGame">Psychic Game</h1>
+			<div class="row">
+				<div class="col-lg-8">
+					<h1 class="subtitle">Guess what letter I'm thinking of...</h1>
+				</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<h2 class="wins premade">Wins:</h2>
+				<h3 id="winCounter" class="scorecolor"></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<h2 class="losses premade">Losses:</h2>
+				<h3 id="loseCounter" class="scorecolor"></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<h2 class="guesses premade">Guesses Left:</h2>
+				<h3 id="numGuess" class="scorecolor"></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<h2 class="lettersNow premade">Letters Guessed:</h2>
+				<h3 id="userGuessed" class="scorecolor"></h3>
+			</div>
+		</div>
+</div>
+ 
+</div>
+</body>
+</html>
